@@ -1,0 +1,16 @@
+# bootstrap/.gitignore
+
+# Local state — intentionally local, never commit
+terraform.tfstate
+terraform.tfstate.backup
+
+# Terraform working directory — downloaded providers, cached data
+.terraform/
+
+# Crash logs
+crash.log
+crash.*.log
+
+# .terraform.lock.hcl is left uncommitted here intentionally.
+# Bootstrap runs once manually — no need to pin provider versions in git for it.
+.terraform.lock.hcl
