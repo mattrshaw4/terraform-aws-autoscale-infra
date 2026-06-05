@@ -32,3 +32,15 @@ output "availability_zones" {
   description = "Availability zones in use"
   value       = aws_subnet.public[*].availability_zone
 }
+
+output "alb_security_group_id" {
+  description = "ALB security group ID — referenced by the load balancer in Phase 5"
+  value       = aws_security_group.alb.id
+}
+
+output "ec2_security_group_id" {
+  description = "EC2 security group ID — referenced by the launch template in Phase 4"
+  value       = aws_security_group.ec2.id
+}
+
+
