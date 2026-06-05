@@ -1,0 +1,21 @@
+# .gitignore — root project
+
+# Terraform state — never commit, contains sensitive resource data
+*.tfstate
+*.tfstate.backup
+
+# Terraform working directory — downloaded providers, modules, cache
+.terraform/
+
+# Lock file — commit this to pin provider versions across machines
+# .terraform.lock.hcl
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Variable files that may contain secrets — commit tfvars only if clean
+# *.tfvars  ← intentionally not ignored, our tfvars has no secrets
+
+# OS noise
+.DS_Store
