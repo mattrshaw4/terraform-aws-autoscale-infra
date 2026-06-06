@@ -58,4 +58,19 @@ output "ami_id" {
   value       = data.aws_ami.al2023.id
 }
 
+output "alb_dns_name" {
+  description = "ALB DNS name — open this in your browser after apply"
+  value       = aws_lb.main.dns_name
+}
+
+output "alb_arn" {
+  description = "ALB ARN — referenced by CloudWatch alarms in Phase 6"
+  value       = aws_lb.main.arn
+}
+
+output "target_group_arn" {
+  description = "Target group ARN — referenced by CloudWatch alarms in Phase 6"
+  value       = aws_lb_target_group.main.arn
+}
+
 

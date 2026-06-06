@@ -141,7 +141,7 @@ resource "aws_autoscaling_group" "main" {
 
   # EC2 health check for now — Phase 5 upgrades this to ELB
   # once the load balancer is attached
-  health_check_type         = "EC2"
+  health_check_type         = "ELB"
   health_check_grace_period = 300
 
   launch_template {
