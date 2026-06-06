@@ -73,4 +73,14 @@ output "target_group_arn" {
   value       = aws_lb_target_group.main.arn
 }
 
+output "cloudwatch_cpu_high_alarm" {
+  description = "High CPU alarm name — fires scale-out above 70% for 4 minutes"
+  value       = aws_cloudwatch_metric_alarm.cpu_high.alarm_name
+}
+
+output "cloudwatch_cpu_low_alarm" {
+  description = "Low CPU alarm name — fires scale-in below 20% for 4 minutes"
+  value       = aws_cloudwatch_metric_alarm.cpu_low.alarm_name
+}
+
 
