@@ -233,7 +233,7 @@ At high traffic, it scales to 4. You pay for what you use.
 
 **Matt Shaw** — Cloud Engineer  
 Documenting the transition from professional kitchen to cloud infrastructure at
-[Terraforming My Career](https://medium.com/@mattrshaw4)
+[Terraforming My Career](https://www.linkedin.com/newsletters/terraforming-my-career-7395876133298343936)
 
 Kitchens and cloud systems fail the same way. I learned to prevent both.
 
