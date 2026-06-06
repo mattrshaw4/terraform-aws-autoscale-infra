@@ -35,3 +35,27 @@ variable "availability_zones" {
   type        = list(string)
   default     = ["us-east-1a", "us-east-1b"]
 }
+
+variable "instance_type" {
+  description = "EC2 instance type for ASG launch template"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "asg_min_size" {
+  description = "Minimum number of instances in the ASG"
+  type        = number
+  default     = 1
+}
+
+variable "asg_max_size" {
+  description = "Maximum number of instances in the ASG"
+  type        = number
+  default     = 4
+}
+
+variable "asg_desired_capacity" {
+  description = "Desired number of instances in the ASG"
+  type        = number
+  default     = 2
+}

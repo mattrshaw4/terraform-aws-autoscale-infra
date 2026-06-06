@@ -1,0 +1,15 @@
+# Git history - not useful to Claude
+.git/
+
+# Terraform downloaded providers (binary files, can be 50-100MB)
+.terraform/
+
+# Lock file - machine-generated, not meaningful context
+.terraform.lock.hcl
+
+# State files - sensitive + unreadable binary format
+*.tfstate
+*.tfstate.backup
+
+# AWS CLI zip if it ends up here
+*.zip

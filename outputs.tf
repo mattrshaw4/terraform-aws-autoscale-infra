@@ -43,4 +43,19 @@ output "ec2_security_group_id" {
   value       = aws_security_group.ec2.id
 }
 
+output "launch_template_id" {
+  description = "Launch template ID"
+  value       = aws_launch_template.main.id
+}
+
+output "autoscaling_group_name" {
+  description = "ASG name — used for CloudWatch alarms in Phase 6"
+  value       = aws_autoscaling_group.main.name
+}
+
+output "ami_id" {
+  description = "Amazon Linux 2023 AMI ID resolved at plan time"
+  value       = data.aws_ami.al2023.id
+}
+
 
