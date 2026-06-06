@@ -15,7 +15,7 @@ resource "aws_lb" "main" {
   subnets            = aws_subnet.public[*].id
 
   enable_deletion_protection = false
-  drop_invalid_header_fields = true  # Prevents HTTP desync attacks
+  drop_invalid_header_fields = true # Prevents HTTP desync attacks
 
   tags = merge(local.common_tags, {
     Name = "${local.name_prefix}-alb"
@@ -42,10 +42,10 @@ resource "aws_lb_target_group" "main" {
     path                = "/"
     port                = "traffic-port"
     protocol            = "HTTP"
-    healthy_threshold   = 2    # 2 consecutive passes = healthy
-    unhealthy_threshold = 3    # 3 consecutive fails = unhealthy
-    interval            = 30   # Check every 30 seconds
-    timeout             = 5    # Wait 5 seconds for a response
+    healthy_threshold   = 2  # 2 consecutive passes = healthy
+    unhealthy_threshold = 3  # 3 consecutive fails = unhealthy
+    interval            = 30 # Check every 30 seconds
+    timeout             = 5  # Wait 5 seconds for a response
     matcher             = "200"
   }
 

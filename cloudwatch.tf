@@ -16,8 +16,8 @@ resource "aws_autoscaling_policy" "scale_out" {
   name                   = "${local.name_prefix}-scale-out"
   autoscaling_group_name = aws_autoscaling_group.main.name
   adjustment_type        = "ChangeInCapacity"
-  scaling_adjustment     = 1      # Add 1 instance per trigger
-  cooldown               = 300    # Wait 5 minutes before scaling again
+  scaling_adjustment     = 1   # Add 1 instance per trigger
+  cooldown               = 300 # Wait 5 minutes before scaling again
   # Cooldown prevents thrashing — if CPU spikes repeatedly,
   # the ASG waits 300s before evaluating another scale-out event
 }
@@ -26,7 +26,7 @@ resource "aws_autoscaling_policy" "scale_in" {
   name                   = "${local.name_prefix}-scale-in"
   autoscaling_group_name = aws_autoscaling_group.main.name
   adjustment_type        = "ChangeInCapacity"
-  scaling_adjustment     = -1     # Remove 1 instance per trigger
+  scaling_adjustment     = -1 # Remove 1 instance per trigger
   cooldown               = 300
   # ASG min_size = 1 acts as the floor — scale-in never goes below 1
 }
@@ -48,7 +48,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   period              = 120
   statistic           = "Average"
   threshold           = 70
-  treat_missing_data  = "notBreaching"  # Missing data never triggers scale-out
+  treat_missing_data  = "notBreaching" # Missing data never triggers scale-out
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.main.name
@@ -71,7 +71,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   period              = 120
   statistic           = "Average"
   threshold           = 20
-  treat_missing_data  = "notBreaching"  # Missing data never triggers scale-in
+  treat_missing_data  = "notBreaching" # Missing data never triggers scale-in
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.main.name
