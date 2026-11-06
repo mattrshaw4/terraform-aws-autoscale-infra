@@ -1,7 +1,9 @@
 # .github/workflows/terraform-ci.yml
 #
 # Runs on every push to main and every pull request.
-# Validates formatting, syntax, and generates a plan before any merge.
+# Validates formatting and syntax. No AWS credentials are used:
+# the infrastructure has been torn down, so this pipeline checks the
+# code only (init -backend=false skips the S3 state backend entirely).
 # Apply is never automated — human review required.
 
 name: Terraform CI
@@ -14,25 +16,17 @@ on:
 
 env:
   TF_VERSION: "1.11.0"
-  AWS_REGION: "us-east-1"
 
 jobs:
   terraform:
     name: Terraform CI
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read   # least privilege: no id-token, no write access
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4.1.0
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform ${{ env.TF_VERSION }}
         uses: hashicorp/setup-terraform@v3.1.2
@@ -43,24 +37,15 @@ jobs:
         id: fmt
         run: terraform fmt -check -recursive
         # Fails the pipeline if any .tf file is not correctly formatted.
-        # Enforces consistent code style across the entire project.
 
-      - name: Terraform Init
+      - name: Terraform Init (no backend)
         id: init
-        run: terraform init
-        # Downloads the AWS provider and connects to the S3 backend.
-        # Same backend config as local development.
+        run: terraform init -backend=false
+        # Downloads the AWS provider only. Skips the S3 backend, so no
+        # AWS credentials are needed and no state is read.
 
       - name: Terraform Validate
         id: validate
         run: terraform validate
         # Validates HCL syntax and internal consistency.
         # Catches missing variables, invalid references, and type errors.
-
-      - name: Terraform Plan
-        id: plan
-        if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
-        # Only runs on pull requests.
-        # Shows exactly what would change before any code merges.
-        # Output is visible in the Actions log.
